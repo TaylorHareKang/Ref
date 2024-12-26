@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>레시피 검색</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>도주 냉장고 레시피</h1>
+        <div class="recipe-nav">
+            <a href="{{ url_for('index') }}" class="nav-button">냉장고로 돌아가기</a>
+        </div>
+        
+        <div class="ingredients-list">
+            <h2>현재 보유 재료</h2>
+            <div class="ingredient-tags">
+                {% for ingredient in ingredients %}
+                    <span class="ingredient-tag">{{ ingredient }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="recipe-links">
+            <h2>레시피 검색</h2>
+            <div class="recipe-search-links">
+                <a href="https://www.10000recipe.com/recipe/list.html?q={{ ingredients|join('+') }}" 
+                   class="recipe-search-button" target="_blank">
+                    만개의 레시피에서 검색
+                </a>
+                <a href="https://www.youtube.com/results?search_query={{ ingredients|join('+') }}+레시피" 
+                   class="recipe-search-button youtube" target="_blank">
+                    유튜브에서 레시피 검색
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

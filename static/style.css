@@ -1,0 +1,839 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-areas: 
+        "top-left top-right"
+        "bottom-left bottom-right";
+    gap: 2px;
+    margin: 20px auto;
+    max-width: 950px;
+    background-color: #2f3640;
+    padding: 30px;
+    border-radius: 20px;
+    min-height: 1000px;
+    box-shadow: 
+        0 0 50px rgba(0,0,0,0.2),
+        inset 0 0 30px rgba(0,0,0,0.1);
+    border: 2px solid #353b48;
+    position: relative;
+}
+
+.items-grid::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    height: 60%;
+    width: 40px;
+    background-color: #485460;
+    border-radius: 0 10px 10px 0;
+    transform: translateY(-50%);
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.2);
+}
+
+.fridge-section {
+    background-color: #f5f6fa;
+    padding: 15px;
+    border-radius: 8px;
+    height: 450px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+    border: 1px solid #dcdde1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.fridge-section::before {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 8px;
+    height: 40px;
+    background-color: #2f3640;
+    border-radius: 4px;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+.fridge-section.opening {
+    animation: openDoor 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes openDoor {
+    0% {
+        transform: perspective(1000px) rotateY(0);
+    }
+    20% {
+        transform: perspective(1000px) rotateY(-5deg);
+    }
+    60% {
+        transform: perspective(1000px) rotateY(85deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(0);
+    }
+}
+
+.fridge-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+}
+
+.fridge-section:hover {
+    background-color: #ffffff;
+}
+
+.section-top-left {
+    grid-area: top-left;
+}
+
+.section-top-right {
+    grid-area: top-right;
+}
+
+.section-bottom-left {
+    grid-area: bottom-left;
+}
+
+.section-bottom-right {
+    grid-area: bottom-right;
+}
+
+.section-title,
+.add-hint {
+    display: none;
+}
+
+.section-items {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-right: -10px;
+}
+
+.item-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85em;
+    position: relative;
+    z-index: 1;
+}
+
+.item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.item-card h3 {
+    margin: 0;
+    font-size: 1em;
+    min-width: 80px;
+}
+
+.category-tag {
+    padding: 2px 6px;
+    margin: 0;
+    min-width: 50px;
+}
+
+.date-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+}
+
+.purchase-date, .expiry-date {
+    white-space: nowrap;
+    flex: 1;
+    min-width: 130px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    min-width: 90px;
+    flex-shrink: 0;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.delete-button {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #ff4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85em;
+    margin-left: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+.add-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.add-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #666;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.location-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
+
+.location-상단-왼쪽 {
+    background-color: #ffcdd2;
+    color: #c62828;
+}
+
+.location-상단-오른쪽 {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.location-하단-왼쪽 {
+    background-color: #bbdefb;
+    color: #1565c0;
+}
+
+.location-하단-오른쪽 {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.temperature-display {
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    background-color: #2d3436;
+    color: #00b894;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.expired {
+    background-color: rgba(255, 235, 235, 0.9) !important;
+    border: 1px solid #ffcdd2 !important;
+}
+
+.expired-text {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.warning-text {
+    color: #f57c00;
+    font-weight: bold;
+}
+
+.safe-text {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.expired-badge {
+    display: inline-block;
+    background-color: #d32f2f;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+.warning-badge {
+    display: inline-block;
+    background-color: #f57c00;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+.safe-badge {
+    display: inline-block;
+    background-color: #2e7d32;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-1px); }
+    75% { transform: translateX(1px); }
+}
+
+.expired:hover {
+    animation: shake 0.3s ease-in-out infinite;
+    transform: none !important;
+}
+
+.quantity-form {
+    margin: 8px 0;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.quantity-input {
+    width: 35px;
+    text-align: center;
+    padding: 2px;
+}
+
+.quantity-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+    background-color: #e9ecef;
+}
+
+.quantity-btn:active {
+    background-color: #dee2e6;
+}
+
+.date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.purchase-date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.expiry-date {
+    font-size: 0.9em;
+}
+
+/* 냉장고 선택기 스타일 추가 */
+.fridge-selector {
+    margin: 20px 0;
+}
+
+.fridge-layout {
+    width: 300px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: #f5f6fa;
+    border: 2px solid #2f3640;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.fridge-layout::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    height: 60%;
+    width: 30px;
+    background-color: #485460;
+    border-radius: 0 10px 10px 0;
+    transform: translateY(-50%);
+}
+
+.fridge-layout input[type="radio"] {
+    display: none;
+}
+
+.fridge-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.fridge-section span {
+    font-size: 0.9em;
+    color: #2f3640;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.fridge-section:hover {
+    background-color: #f1f2f6;
+}
+
+/* 선택된 섹션 스타일 */
+input[type="radio"]:checked + .fridge-section {
+    background-color: #74b9ff;
+    border-color: #0984e3;
+}
+
+input[type="radio"]:checked + .fridge-section span {
+    color: white;
+    font-weight: bold;
+}
+
+/* 각 섹션별 그데이션 효과 */
+.top-left, .top-right {
+    background: linear-gradient(135deg, #f5f6fa 0%, #ffffff 100%);
+}
+
+.bottom-left, .bottom-right {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f6fa 100%);
+}
+
+/* 냉장고 선반 효과 */
+.fridge-layout::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+}
+
+/* 호버 효과 */
+.fridge-section:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+}
+
+/* 반응형 크기 조정 */
+@media (max-width: 500px) {
+    .fridge-layout {
+        width: 250px;
+        height: 350px;
+    }
+}
+
+/* 위치 선택 관련 스타일 추가 */
+.location-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.select-location-btn {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.fridge-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    grid-template-rows: repeat(2, 100px);
+    gap: 2px;
+    background-color: #2f3640;
+    padding: 2px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.fridge-cell {
+    background-color: #f5f6fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cell-content {
+    font-size: 0.9em;
+    text-align: center;
+    color: #2f3640;
+}
+
+.fridge-cell:hover {
+    background-color: #74b9ff;
+}
+
+.fridge-cell.selected {
+    background-color: #0984e3;
+}
+
+.fridge-cell.selected .cell-content {
+    color: white;
+}
+
+.modal h3 {
+    margin-top: 0;
+    color: #2f3640;
+    text-align: center;
+}
+
+/* 스크롤바 스타일링 */
+.section-items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.section-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.section-items::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.section-items::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* 빈 섹션일 표시할 힌트 */
+.fridge-section:empty::after {
+    content: '클릭하여 물품 추가';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+    font-size: 0.9em;
+    pointer-events: none;
+}
+
+/* 날짜 레이블 스타일 */
+.date-label {
+    color: #666;
+    font-size: 0.9em;
+    width: 45px;
+    display: inline-block;
+    text-align: right;
+}
+
+/* 날짜 값 스타일 */
+.date-value {
+    flex: 1;
+}
+
+/* 제목 스타일 추가 */
+h1 {
+    font-size: 2.5em;
+    text-align: center;
+    margin: 20px 0;
+    color: #2f3640;
+    font-weight: bold;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    padding-bottom: 15px;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, #74b9ff, #0984e3);
+    border-radius: 2px;
+}
+
+/* 냉장고 아이콘 추가 */
+h1::before {
+    content: '❄️';
+    margin-right: 10px;
+    font-size: 0.9em;
+    animation: float 2s ease-in-out infinite;
+}
+
+/* 부드러운 움직임 애니메이션 */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+}
+
+/* 냉기 효과 */
+.fridge-section.opening::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, 
+        rgba(255,255,255,0.8), 
+        rgba(255,255,255,0.2)
+    );
+    opacity: 0;
+    animation: coldEffect 1s ease-out;
+}
+
+@keyframes coldEffect {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* 네비게이션 버튼 스타일 */
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.recipe-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9f43;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.recipe-button:hover {
+    background-color: #f39c12;
+}
+
+/* 레시피 페이지 스타일 */
+.recipe-nav {
+    margin-bottom: 30px;
+}
+
+.ingredients-list {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ingredient-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.ingredient-tag {
+    background-color: #74b9ff;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+.recipe-links {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recipe-search-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.recipe-search-button {
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.recipe-search-button.youtube {
+    background-color: #ff4444;
+}
+
+.recipe-search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+} 
