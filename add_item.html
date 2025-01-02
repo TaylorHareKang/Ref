@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>물품 추가</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>새 물품 추가</h1>
+        <form method="POST" class="add-form">
+            <div class="form-group">
+                <label>물품명:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>카테고리:</label>
+                <select name="category" required>
+                    <option value="">카테고리 선택</option>
+                    <option value="채소">채소</option>
+                    <option value="과일">과일</option>
+                    <option value="육류">육류</option>
+                    <option value="유제품">유제품</option>
+                    <option value="음료">음료</option>
+                    <option value="반찬">반찬</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>보관 위치:</label>
+                <div class="location-display">
+                    <span id="selected-location">
+                        {% if selected_location %}
+                            {{ selected_location }}
+                        {% else %}
+                            위치를 선택해주세요
+                        {% endif %}
+                    </span>
+                    <button type="button" class="select-location-btn" onclick="openLocationModal()">위치 선택</button>
+                </div>
+                <input type="hidden" name="location" id="location-input" required value="{{ selected_location }}">
+            </div>
+            <div class="form-group">
+                <label>구매일:</label>
+                <input type="date" name="purchase_date" id="purchase_date" required 
+                       value="{{ today }}" onchange="updateExpiryDate()">
+            </div>
+            <div class="form-group">
+                <label>유통기한:</label>
+                <input type="date" name="expiry_date" id="expiry_date" required
+                       value="{{ (datetime.strptime(today, '%Y-%m-%d') + timedelta(days=7)).strftime('%Y-%m-%d') }}">
+            </div>
+            <div class="form-group">
+                <label>수량:</label>
+                <input type="number" name="quantity" value="1" min="1" required>
+            </div>
+            <button type="submit">추가하기</button>
+            <a href="{{ url_for('index') }}" class="cancel-button">취소</a>
+        </form>
+    </div>
+    <div id="location-modal" class="modal">
+        <div class="modal-content">
+            <h3>보관 위치 선택</h3>
+            <div class="fridge-grid">
+                <div class="fridge-cell" onclick="selectLocation('상단 왼쪽')" data-location="상단 왼쪽">
+                    <div class="cell-content">상단 왼쪽</div>
+                </div>
+                <div class="fridge-cell" onclick="selectLocation('상단 오른쪽')" data-location="상단 오른쪽">
+                    <div class="cell-content">상단 오른쪽</div>
+                </div>
+                <div class="fridge-cell" onclick="selectLocation('하단 왼쪽')" data-location="하단 왼쪽">
+                    <div class="cell-content">하단 왼쪽</div>
+                </div>
+                <div class="fridge-cell" onclick="selectLocation('하단 오른쪽')" data-location="하단 오른쪽">
+                    <div class="cell-content">하단 오른쪽</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function updateExpiryDate() {
+        const purchaseDate = document.getElementById('purchase_date').value;
+        const date = new Date(purchaseDate);
+        date.setDate(date.getDate() + 7);
+        
+        // YYYY-MM-DD 형식으로 변환
+        const expiryDate = date.toISOString().split('T')[0];
+        document.getElementById('expiry_date').value = expiryDate;
+    }
+
+    function openLocationModal() {
+        document.getElementById('location-modal').style.display = 'flex';
+    }
+
+    function selectLocation(location) {
+        document.getElementById('selected-location').textContent = location;
+        document.getElementById('location-input').value = location;
+        document.getElementById('location-modal').style.display = 'none';
+        
+        // 모든 셀의 선택 상태 제거
+        document.querySelectorAll('.fridge-cell').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        
+        // 선택된 셀에 선택 상태 추가
+        document.querySelector(`[data-location="${location}"]`).classList.add('selected');
+    }
+
+    // 모달 외부 클릭시 닫기
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('location-modal')) {
+            document.getElementById('location-modal').style.display = 'none';
+        }
+    }
+
+    // 페이지 로드 시 선택된 위치가 있으면 해당 셀 강조
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectedLocation = '{{ selected_location }}';
+        if (selectedLocation) {
+            const cell = document.querySelector(`[data-location="${selectedLocation}"]`);
+            if (cell) {
+                cell.classList.add('selected');
+            }
+        }
+    });
+    </script>
+</body>
+</html> 
