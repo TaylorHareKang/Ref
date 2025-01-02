@@ -2,14 +2,14 @@
 <html>
 <head>
     <title>냉장고 관리</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('./static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>도주 냉장고</h1>
         <div class="nav-buttons">
-            <a href="{{ url_for('add_item') }}" class="add-button">새 물품 추가</a>
-            <a href="{{ url_for('recipes') }}" class="recipe-button">🍳 레시피</a>
+            <a href="{{ url_for('./add_item') }}" class="add-button">새 물품 추가</a>
+            <a href="{{ url_for('./recipes') }}" class="recipe-button">🍳 레시피</a>
         </div>
         
         <div class="items-grid">
@@ -43,14 +43,14 @@
                                         </span>
                                     </p>
                                 </div>
-                                <form class="quantity-form" action="{{ url_for('update_quantity', item_id=item.id) }}" method="POST">
+                                <form class="quantity-form" action="{{ url_for('./update_quantity', item_id=item.id) }}" method="POST">
                                     <div class="quantity-control">
                                         <button type="button" class="quantity-btn minus" onclick="decrementQuantity(this)">-</button>
                                         <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input" onchange="this.form.submit()">
                                         <button type="button" class="quantity-btn plus" onclick="incrementQuantity(this)">+</button>
                                     </div>
                                 </form>
-                                <a href="{{ url_for('delete_item', item_id=item.id) }}" 
+                                <a href="{{ url_for('./delete_item', item_id=item.id) }}" 
                                    class="delete-button"
                                    onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                             </div>
@@ -88,14 +88,14 @@
                                         </span>
                                     </p>
                                 </div>
-                                <form class="quantity-form" action="{{ url_for('update_quantity', item_id=item.id) }}" method="POST">
+                                <form class="quantity-form" action="{{ url_for('./update_quantity', item_id=item.id) }}" method="POST">
                                     <div class="quantity-control">
                                         <button type="button" class="quantity-btn minus" onclick="decrementQuantity(this)">-</button>
                                         <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input" onchange="this.form.submit()">
                                         <button type="button" class="quantity-btn plus" onclick="incrementQuantity(this)">+</button>
                                     </div>
                                 </form>
-                                <a href="{{ url_for('delete_item', item_id=item.id) }}" 
+                                <a href="{{ url_for('./delete_item', item_id=item.id) }}" 
                                    class="delete-button"
                                    onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                             </div>
@@ -133,14 +133,14 @@
                                         </span>
                                     </p>
                                 </div>
-                                <form class="quantity-form" action="{{ url_for('update_quantity', item_id=item.id) }}" method="POST">
+                                <form class="quantity-form" action="{{ url_for('./update_quantity', item_id=item.id) }}" method="POST">
                                     <div class="quantity-control">
                                         <button type="button" class="quantity-btn minus" onclick="decrementQuantity(this)">-</button>
                                         <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input" onchange="this.form.submit()">
                                         <button type="button" class="quantity-btn plus" onclick="incrementQuantity(this)">+</button>
                                     </div>
                                 </form>
-                                <a href="{{ url_for('delete_item', item_id=item.id) }}" 
+                                <a href="{{ url_for('./delete_item', item_id=item.id) }}" 
                                    class="delete-button"
                                    onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                             </div>
@@ -178,14 +178,14 @@
                                         </span>
                                     </p>
                                 </div>
-                                <form class="quantity-form" action="{{ url_for('update_quantity', item_id=item.id) }}" method="POST">
+                                <form class="quantity-form" action="{{ url_for('./update_quantity', item_id=item.id) }}" method="POST">
                                     <div class="quantity-control">
                                         <button type="button" class="quantity-btn minus" onclick="decrementQuantity(this)">-</button>
                                         <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input" onchange="this.form.submit()">
                                         <button type="button" class="quantity-btn plus" onclick="incrementQuantity(this)">+</button>
                                     </div>
                                 </form>
-                                <a href="{{ url_for('delete_item', item_id=item.id) }}" 
+                                <a href="{{ url_for('./delete_item', item_id=item.id) }}" 
                                    class="delete-button"
                                    onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                             </div>
@@ -216,7 +216,7 @@
         
         // 애니메이션이 끝나면 페이지 이동
         setTimeout(() => {
-            window.location.href = "{{ url_for('add_item') }}?location=" + encodeURIComponent(location);
+            window.location.href = "{{ url_for('./add_item') }}?location=" + encodeURIComponent(location);
         }, 800); // 애니메이션이 거의 끝날 무렵 이동
         
         // 이벤트 한 번만 실행되도록
