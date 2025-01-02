@@ -126,4 +126,4 @@ def recipes():
     return render_template('recipes.html', recipes=sample_recipes, ingredients=ingredients)
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True, host= '0.0.0.0')
